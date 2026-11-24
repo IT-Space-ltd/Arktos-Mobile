@@ -31,3 +31,13 @@ ignoreUntil = 2027-01-01
 id = "RUSTSEC-2024-0436"
 reason = "paste 1.0.15 unmaintained — no fix exists, no known exploit. Pure proc-macro crate, compile-time only — never in the runtime attack surface."
 ignoreUntil = 2027-01-01
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2026-0543"
+reason = "chrono is flagged unmaintained — no fix exists. Transitive dep of the Arti tree via serde_with; not a vulnerability, just a maintenance-status marker. Revisit if Arti migrates its serde stack."
+ignoreUntil = 2027-01-01
+
+[[IgnoredVulns]]
+id = "RUSTSEC-2026-0542"
+reason = "humantime is flagged unmaintained — no fix exists. Used broadly across the Arti tree (arti-client, tor-dirmgr, tor-netdir, humantime-serde and friends) for duration formatting; not a vulnerability. Revisit when Arti replaces it."
+ignoreUntil = 2027-01-01
