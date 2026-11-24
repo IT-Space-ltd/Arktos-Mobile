@@ -71,7 +71,18 @@ Everything else in `app/src/main` is engine-neutral: `browser/`
 `BrowserApp`, `MainActivity`, `IncognitoActivity`, `js/` loaders — they
 talk to `Page`/`Profile`/`Backend` and the neutral `UrlUtils` helpers
 (`isFileUrl`, `isAboutUrl`, `isValidUrl`, `fileExtensionFromUrl`) — no
-`android.webkit`/`androidx.webkit` imports anywhere outside `view/`.
+`android.webkit`/`androidx.webkit` imports anywhere outside `view/`,
+with one documented exception:
+
+- `app/src/main/java/com/arktosbrowser/mobile/browser/IncognitoPartition.kt`
+  — imports `android.webkit.WebView`
+  solely for `WebView.setDataDirectorySuffix`, which must run in the
+  `:incognito` process before any provider or injected singleton can
+  initialize the WebView stack (applied in
+  `BrowserApp.attachBaseContext`; `WebViewEngine.initialize` re-calls
+  it as an idempotent backstop). GeckoView needs no equivalent —
+  incognito there is `usePrivateMode`. The rest of the file's WebView
+  partitioning (directory wipe) is path-based, engine-agnostic.
 
 ## Gecko adapter (`app/src/gecko/java/com/arktosbrowser/mobile/gecko/`)
 

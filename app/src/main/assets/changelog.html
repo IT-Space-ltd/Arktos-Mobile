@@ -174,9 +174,11 @@
     </div>
 
     <div class="entry">
-        <h2>1.2.15 — GeckoView stable respin</h2>
+        <h2>1.2.15 — GeckoView stable respin + dependency updates</h2>
         <ul>
             <li>Gecko flavor updated to the latest stable-channel GeckoView build (160.0.20261116130455, November 16) — same 160 major, carries Mozilla's latest engine fixes. The Light (WebView) flavor is unchanged.</li>
+            <li>Dependency updates (merged upstream PRs): Gradle wrapper 9.8.2 → 9.9.0, KSP 2.3.12 → 2.3.13, AndroidX Work 2.10.3 → 2.12.0, swiperefreshlayout 1.0.0 → 1.2.0, ZXing core 3.5.3 → 3.5.4, osv-scanner-action 2.7.0 → 2.7.1.</li>
+            <li>Rust: getrandom 0.2.17 → 0.4.3 with the API port (getrandom() renamed to fill()); the lock already carried 0.3/0.4 transitively via Arti, the direct pin was the only 0.2 holdout.</li>
         </ul>
         <h2>1.2.14 — Incognito crash + text-reflow zoom fix</h2>
         <ul>

@@ -14,9 +14,9 @@
 
 ---
 
-## 1.2.15 — GeckoView stable respin
+## 1.2.15 — GeckoView stable respin + dependency updates
 
-Gecko flavor updated to the newest stable-channel GeckoView build (160.0.20261116130455) — Mozilla's latest engine fixes on the 160 line. Light (WebView) flavor unchanged.
+Gecko flavor updated to the newest stable-channel GeckoView build (160.0.20261116130455) — Mozilla's latest engine fixes on the 160 line. Light (WebView) flavor unchanged. Also rolls up the pending dependency bumps: Gradle 9.9.0, KSP 2.3.13, AndroidX Work 2.12.0, swiperefreshlayout 1.2.0, ZXing 3.5.4, and getrandom 0.4.3 in the Rust core.
 
 ## 1.2.14 — Incognito crash + reflow fix
 
