@@ -14,6 +14,10 @@
 
 ---
 
+## 1.2.15 — GeckoView stable respin
+
+Gecko flavor updated to the newest stable-channel GeckoView build (160.0.20261116130455) — Mozilla's latest engine fixes on the 160 line. Light (WebView) flavor unchanged.
+
 ## 1.2.14 — Incognito crash + reflow fix
 
 Fixes the incognito-process startup crash (WebView data-directory suffix set too late) and the text-reflow pinch-zoom collapsing text into a one-character column.

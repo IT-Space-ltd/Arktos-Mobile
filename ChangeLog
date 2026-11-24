@@ -6,6 +6,13 @@ notes; `app/src/main/assets/changelog.html` renders the same entries
 inside the app (Settings → About → Changelog, or arktos://changelog).
 When you add an entry here, mirror it in the HTML page.
 
+1.2.15 — GeckoView stable respin
+
+- Gecko flavor updated to the latest stable-channel GeckoView
+  build (160.0.20261116130455, November 16) — same 160 major,
+  carries Mozilla's latest engine fixes. The Light (WebView)
+  flavor is unchanged.
+
 1.2.14 — Incognito crash + text-reflow zoom fix
 
 - Fixed a crash when the browser starts in the incognito process:
