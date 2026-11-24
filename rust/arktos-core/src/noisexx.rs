@@ -210,7 +210,7 @@ fn dh(secret: &StaticSecret, public: &PublicKey) -> [u8; 32] {
 /// Fill `buf` with OS entropy through the tree's reviewed RNG.
 pub fn rand_bytes<const N: usize>() -> RcResult<[u8; N]> {
     let mut b = [0u8; N];
-    getrandom::getrandom(&mut b).map_err(|e| Fail {
+    getrandom::fill(&mut b).map_err(|e| Fail {
         status: RcStatus::Unavailable,
         msg: format!("system rng: {e}"),
     })?;

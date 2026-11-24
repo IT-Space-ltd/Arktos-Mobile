@@ -90,7 +90,7 @@ pub fn seal_with_key(key: &[u8; KEY_SIZE], plain: &[u8]) -> RcResult<Vec<u8>> {
         msg: format!("aes-gcm init: {e}"),
     })?;
     let mut nonce = [0u8; NONCE_SIZE];
-    getrandom::getrandom(&mut nonce).map_err(|e| Fail {
+    getrandom::fill(&mut nonce).map_err(|e| Fail {
         status: RcStatus::Unavailable,
         msg: format!("getrandom: {e}"),
     })?;
