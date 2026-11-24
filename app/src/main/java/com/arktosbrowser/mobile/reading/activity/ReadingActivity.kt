@@ -479,6 +479,7 @@ class ReadingActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
             tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                 override fun onStart(utteranceId: String) {}
+                @Suppress("OVERRIDE_DEPRECATION", "DEPRECATION")
                 override fun onError(utteranceId: String) {}
                 override fun onDone(utteranceId: String) {
                     runOnUiThread {

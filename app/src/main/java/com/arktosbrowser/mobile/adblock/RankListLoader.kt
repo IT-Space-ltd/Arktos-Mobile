@@ -257,7 +257,7 @@ class RankListLoader @Inject constructor(
      * redirect hop per response, 128MB cap — the desktop rules.
      */
     private fun download(sourceUrl: String, target: File) {
-        val client = (okHttpClient.blockingGet() ?: throw IOException("No HTTP client"))
+        val client = okHttpClient.blockingGet()
             .newBuilder()
             .followRedirects(false)
             .followSslRedirects(false)
@@ -289,7 +289,7 @@ class RankListLoader @Inject constructor(
                     throw IOException("HTTP ${response.code} fetching $url")
                 }
                 target.parentFile?.mkdirs()
-                writeBody(response.body ?: throw IOException("Empty response fetching $url"), target)
+                writeBody(response.body, target)
                 return
             }
             if (!redirected) {

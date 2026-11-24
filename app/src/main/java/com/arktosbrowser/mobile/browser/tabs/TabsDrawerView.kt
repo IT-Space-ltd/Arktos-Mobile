@@ -47,8 +47,8 @@ class TabsDrawerView @JvmOverloads constructor(
                                         target: RecyclerView.ViewHolder): Boolean {
 
                         val adapter = recyclerView.adapter as TabsDrawerAdapter
-                        val from = viewHolder.adapterPosition
-                        val to = target.adapterPosition
+                        val from = viewHolder.bindingAdapterPosition
+                        val to = target.bindingAdapterPosition
                         adapter.moveItem(from, to)
 
                         return true

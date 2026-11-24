@@ -138,7 +138,7 @@ class UserScriptBootstrap @Inject constructor(
                     .apply { if (proxy != null) proxy(proxy) }
                     .build()
                 client.newCall(Request.Builder().url(url).build()).execute().use { resp ->
-                    resp.body?.string()?.let { sb.append(it).append('\n') }
+                    resp.body.string().let { sb.append(it).append('\n') }
                 }
             } catch (ex: Exception) {
                 logger.log(TAG, "@require fetch failed for ${e.name}: $url")

@@ -23,7 +23,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import android.provider.MediaStore
 import android.text.InputType
 import android.util.Log
@@ -1076,7 +1076,7 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
         val extraBar = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
         if(isDarkTheme && userPreferences.navbar){
-            extraBar.setBackgroundColor(resources.getColor(R.color.black))
+            extraBar.setBackgroundColor(getColor(R.color.black))
         }
 
         webPageBitmap?.let { webBitmap ->
@@ -1117,7 +1117,7 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
             if(!userPreferences.showTabsInDrawer){
                 extraBar.menu.removeItem(R.id.tabs)
             }
-            extraBar.setOnNavigationItemSelectedListener { item ->
+            extraBar.setOnItemSelectedListener { item ->
                 when(item.itemId) {
                     R.id.tabs -> {
                         binding.drawerLayout.closeDrawer(getBookmarkDrawer())
@@ -1658,7 +1658,7 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
                             MaterialAlertDialogBuilder(this)
                                     .setCancelable(true)
                                     .setTitle(R.string.bookmark_delete)
-                                    .setNegativeButton(android.R.string.no, null)
+                                    .setNegativeButton(R.string.action_no, null)
                                     .setPositiveButton(R.string.yes) { _, _ ->
                                         deleteBookmark(title, url)
                                     }
@@ -2440,9 +2440,6 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
      */
     override fun hideActionBar() {
         if (isFullScreen) {
-            if (binding.toolbarLayout == null || binding.contentFrame == null)
-                return
-
             val height = binding.toolbarLayout.height
 
             if (binding.toolbarLayout.translationY > -0.01f) {
@@ -2470,9 +2467,6 @@ abstract class BrowserActivity : ThemableBrowserActivity(), BrowserView, UIContr
     override fun showActionBar() {
         if (isFullScreen) {
             logger.log(TAG, "showActionBar")
-            if (binding.toolbarLayout == null)
-                return
-
             var height = binding.toolbarLayout.height
             if (height == 0) {
                 binding.toolbarLayout.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)

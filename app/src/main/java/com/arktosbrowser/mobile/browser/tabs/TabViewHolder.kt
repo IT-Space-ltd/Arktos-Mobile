@@ -39,8 +39,7 @@ class TabViewHolder(
             txtTitle.setTextSize(userPreferences.drawerSize.value.toFloat() * 7)
         }
         faviconButton.setOnClickListener(){
-            uiController.showCloseDialog(adapterPosition)
-            true
+            uiController.showCloseDialog(bindingAdapterPosition)
         }
 
     }
@@ -48,9 +47,9 @@ class TabViewHolder(
 
     override fun onClick(v: View) {
         if (v === exitButton) {
-            uiController.tabCloseClicked(adapterPosition)
+            uiController.tabCloseClicked(bindingAdapterPosition)
         } else if (v === layout) {
-            uiController.tabClicked(adapterPosition)
+            uiController.tabClicked(bindingAdapterPosition)
         }
     }
 

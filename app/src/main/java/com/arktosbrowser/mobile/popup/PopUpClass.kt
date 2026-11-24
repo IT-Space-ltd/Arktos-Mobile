@@ -377,10 +377,10 @@ class PopUpClass {
                      })()""".trimMargin()) {
                                 // Hacky workaround for weird WebView encoding bug
                                 var name = it?.replace("\\u003C", "<")
-                                name = name?.replace("\\n", System.getProperty("line.separator").toString())
+                                name = name?.replace("\\n", System.getProperty("line.separator") ?: "\n")
                                 name = name?.replace("\\t", "")
                                 name = name?.replace("\\\"", "\"")
-                                name = name?.substring(1, name.length - 1);
+                                name = name?.let { n -> if (n.length > 1) n.substring(1, n.length - 1) else n }
 
                                 val builder = MaterialAlertDialogBuilder(activity)
                                 val inflater = activity.layoutInflater

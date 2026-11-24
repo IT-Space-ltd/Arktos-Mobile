@@ -223,7 +223,7 @@ class GeckoPromptDelegate(
     /** `<select>` elements — single-choice and multi-choice lists. */
     override fun onChoicePrompt(session: GeckoSession, prompt: ChoicePrompt): GeckoResult<PromptResponse>? {
         val result = GeckoResult<PromptResponse>()
-        val choices = prompt.choices?.filter { !it.separator } ?: emptyList()
+        val choices = prompt.choices.filter { !it.separator }
         activity.runOnUiThread {
             val labels = choices.map { it.label }.toTypedArray()
             val builder = MaterialAlertDialogBuilder(activity)

@@ -29,6 +29,7 @@ import androidx.collection.ArrayMap
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import com.arktosbrowser.mobile.DeviceCapabilities
+import com.arktosbrowser.mobile.R
 import com.arktosbrowser.mobile.browser.TabsManager
 import com.arktosbrowser.mobile.browser.TextZoom
 import com.arktosbrowser.mobile.constant.DESKTOP_USER_AGENT
@@ -998,15 +999,15 @@ class ArktosCookieView(
             return;*/
         val webView = webView ?: return
         val printManager: PrintManager = activity.getSystemService(Context.PRINT_SERVICE) as PrintManager
-        val printAdapter: PrintDocumentAdapter = webView.createPrintDocumentAdapter()
         val jobName: String = " Document"
+        val printAdapter: PrintDocumentAdapter = webView.createPrintDocumentAdapter(jobName)
         val builder: PrintAttributes.Builder = PrintAttributes.Builder()
         builder.setMediaSize(PrintAttributes.MediaSize.ISO_A5)
         val printJob: PrintJob = printManager.print(jobName, printAdapter, builder.build())
         if (printJob.isCompleted()) {
-            Toast.makeText(activity, android.R.string.yes, Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, R.string.action_yes, Toast.LENGTH_LONG).show()
         } else if (printJob.isFailed()) {
-            Toast.makeText(activity, android.R.string.no, Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, R.string.action_no, Toast.LENGTH_LONG).show()
         }
         // Save the job object for later status checking
     }
@@ -1178,10 +1179,8 @@ class ArktosCookieView(
         override fun onLongPress(e: MotionEvent) {
             if (canTriggerLongPress) {
                 val msg = webViewHandler.obtainMessage()
-                if (msg != null) {
-                    msg.target = webViewHandler
-                    webView?.requestFocusNodeHref(msg)
-                }
+                msg.target = webViewHandler
+                webView?.requestFocusNodeHref(msg)
             }
         }
 

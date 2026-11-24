@@ -65,6 +65,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.subjects.PublishSubject
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.*
@@ -355,7 +356,7 @@ class ArktosCookieWebClient(
         }
     }
 
-    @Suppress("OverridingDeprecatedMember")
+    @Suppress("OVERRIDE_DEPRECATION", "DEPRECATION")
     @TargetApi(Build.VERSION_CODES.KITKAT_WATCH)
     override fun shouldInterceptRequest(view: WebView, url: String): WebResourceResponse? {
         changelogResponse(url)?.let { return it }
@@ -521,6 +522,7 @@ class ArktosCookieWebClient(
             return false
         }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onPageCommitVisible(view: WebView?, url: String?) {
         // Modern path: the UserScriptEngine document-start bootstrap
         // handles injection. Keep the legacy evaluateJavascript path
@@ -813,6 +815,7 @@ class ArktosCookieWebClient(
         }.resizeAndShow()
     }
 
+    @Suppress("OVERRIDE_DEPRECATION", "DEPRECATION")
     override fun onReceivedError(webview: WebView, errorCode: Int, error: String, failingUrl: String) {
         if(errorCode != -1) {
             arktosCookieView.onLoadStatusChanged?.invoke(LoadStatus.Failed)
@@ -938,7 +941,7 @@ class ArktosCookieWebClient(
             request.isForMainFrame && "GET".equals(request.method, ignoreCase = true)
         ) || super.shouldOverrideUrlLoading(view, request)
 
-    @Suppress("OverridingDeprecatedMember", "DEPRECATION")
+    @Suppress("OVERRIDE_DEPRECATION", "DEPRECATION")
     override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean =
         shouldOverrideLoading(view, url, false) || super.shouldOverrideUrlLoading(view, url)
 

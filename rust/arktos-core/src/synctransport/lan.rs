@@ -47,7 +47,9 @@ use serde_json::{json, Value};
 use tokio::runtime::Runtime;
 use tokio::sync::mpsc;
 
-use crate::error::{fail, Fail, RcResult, RcStatus};
+use crate::error::{Fail, RcResult, RcStatus};
+#[cfg(not(feature = "synctor"))]
+use crate::error::fail;
 use crate::sync::{hex, DEVICE_KEY_FILE};
 use crate::synctransport::{
     authorized_set, bad_arg, encode_frame, io_fail, not_found, push_event, save_authorized,

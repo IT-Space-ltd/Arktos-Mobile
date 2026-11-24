@@ -203,12 +203,12 @@ class PrivacySettingsFragment : AbstractSettingsFragment() {
         switchPreference(
             preference = SETTINGS_DONOTTRACK,
             isChecked = userPreferences.doNotTrackEnabled,
-            summary = (if(userPreferences.popupsEnabled) {
+            summary = if(userPreferences.popupsEnabled) {
                 resources.getString(R.string.crash_warning)
             }
              else{
                 ""
-            }).toString(),
+            },
             onCheckChange = { userPreferences.doNotTrackEnabled = it }
         )
 
@@ -270,12 +270,12 @@ class PrivacySettingsFragment : AbstractSettingsFragment() {
         switchPreference(
             preference = SETTINGS_IDENTIFYINGHEADERS,
             isChecked = userPreferences.removeIdentifyingHeadersEnabled,
-            summary = (if(userPreferences.popupsEnabled) {
+            summary = if(userPreferences.popupsEnabled) {
                 resources.getString(R.string.crash_warning)
             }
             else{
                 "${ArktosCookieView.HEADER_REQUESTED_WITH}, ${ArktosCookieView.HEADER_WAP_PROFILE}"
-            }).toString(),
+            },
             onCheckChange = { userPreferences.removeIdentifyingHeadersEnabled = it }
         )
 
@@ -776,7 +776,7 @@ class PrivacySettingsFragment : AbstractSettingsFragment() {
 
     fun deleteDir(dir: File?): Boolean {
         return if (dir != null && dir.isDirectory) {
-            val children = dir.list()
+            val children = dir.list() ?: return false
             for (i in children.indices) {
                 val success = deleteDir(File(dir, children[i]))
                 if (!success) {

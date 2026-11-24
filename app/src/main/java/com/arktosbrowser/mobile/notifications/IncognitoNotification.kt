@@ -12,7 +12,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import androidx.core.os.BuildCompat
 
 
 /**
@@ -74,7 +73,7 @@ class IncognitoNotification(
         }
         val incognitoIntent = IncognitoActivity.createIntent(context)
 
-        val flags = if (BuildCompat.isAtLeastS()) {
+        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             PendingIntent.FLAG_IMMUTABLE
         } else{
             0

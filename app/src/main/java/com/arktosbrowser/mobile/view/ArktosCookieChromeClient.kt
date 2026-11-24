@@ -209,9 +209,11 @@ class ArktosCookieChromeClient(
 
     override fun onHideCustomView() = uiController.onHideCustomView()
 
+    @Suppress("OVERRIDE_DEPRECATION", "DEPRECATION")
     override fun onShowCustomView(view: View, callback: CustomViewCallback) =
         uiController.onShowCustomView(view, { callback.onCustomViewHidden() })
 
+    @Suppress("OVERRIDE_DEPRECATION", "DEPRECATION")
     override fun onShowCustomView(view: View, requestedOrientation: Int,
                                   callback: CustomViewCallback) =
         uiController.onShowCustomView(view, { callback.onCustomViewHidden() }, requestedOrientation)

@@ -1384,4 +1384,4 @@ class GeckoPage(
 }
 
 private fun WebResponse.headerValue(name: String): String? =
-    headers?.entries?.firstOrNull { it.key.equals(name, true) }?.value
+    headers.entries.firstOrNull { it.key.equals(name, true) }?.value

@@ -95,8 +95,8 @@ class BookmarksDrawerView @JvmOverloads constructor(
                                         target: RecyclerView.ViewHolder): Boolean {
 
                         val adapter = recyclerView.adapter as BookmarkListAdapter
-                        val from = viewHolder.adapterPosition
-                        val to = target.adapterPosition
+                        val from = viewHolder.bindingAdapterPosition
+                        val to = target.bindingAdapterPosition
                         adapter.moveItem(from, to)
                         adapter.notifyItemMoved(from, to)
 
@@ -366,13 +366,13 @@ class BookmarksDrawerView @JvmOverloads constructor(
         override fun onClick(v: View) {
             when(v){
                 overflowButton ->{
-                    val index = adapterPosition
+                    val index = bindingAdapterPosition
                     if(index != RecyclerView.NO_POSITION){
                         onItemLongClickListener(adapter.itemAt(index).bookmark)
                     }
                 }
                 else -> {
-                    val index = adapterPosition
+                    val index = bindingAdapterPosition
                     if (index.toLong() != RecyclerView.NO_ID) {
                         onItemClickListener(adapter.itemAt(index).bookmark)
                     }

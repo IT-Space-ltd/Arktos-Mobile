@@ -69,7 +69,7 @@ class UpdateChecker @Inject constructor(
             // Read the list, not /releases/latest — GitHub's "latest"
             // pointer can lag behind new tags and resolve to an older
             // release; the highest published semver is authoritative.
-            val arr = org.json.JSONArray(response.body?.string() ?: return null)
+            val arr = org.json.JSONArray(response.body.string())
             var best: UpdateInfo? = null
             for (i in 0 until arr.length()) {
                 val rel = arr.optJSONObject(i) ?: continue

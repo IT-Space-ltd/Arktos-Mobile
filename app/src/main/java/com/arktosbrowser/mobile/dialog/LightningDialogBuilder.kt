@@ -293,7 +293,7 @@ class LightningDialogBuilder @Inject constructor(
             val i = Intent(Intent.ACTION_VIEW, url.toUri())
             i.setData(Uri.parse(url))
             i.setPackage(activity.packageName)
-            startActivity(activity as Context, i, null)
+            activity.startActivity(i)
         },
         DialogItem(title = R.string.action_share) {
             IntentUtils(activity).shareUrl(url, null)

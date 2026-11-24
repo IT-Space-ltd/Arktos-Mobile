@@ -121,7 +121,7 @@ object Diag {
             return
         }
         val am = app.getSystemService(ActivityManager::class.java) ?: return
-        val exits = am.getHistoricalProcessExitReasons(app.packageName, 0, 10) ?: return
+        val exits = am.getHistoricalProcessExitReasons(app.packageName, 0, 10)
         val out = StringBuilder()
         for (info in exits) {
             out.append("=== ").append(ts.format(Date(info.timestamp)))

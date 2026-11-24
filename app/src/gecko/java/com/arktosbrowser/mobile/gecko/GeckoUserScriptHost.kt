@@ -222,8 +222,8 @@ class GeckoUserScriptHost(
         json: JSONObject,
         sender: WebExtension.MessageSender
     ): GeckoResult<Any>? {
-        val sourceOrigin = sender.url?.let { runCatching { Uri.parse(it) }.getOrNull() }
-        val pageUrl = sender.url?.takeIf { sender.isTopLevel }
+        val sourceOrigin = sender.url.let { runCatching { Uri.parse(it) }.getOrNull() }
+        val pageUrl = sender.url.takeIf { sender.isTopLevel }
         when (json.optString("op")) {
             "set" -> {
                 val script = json.optString("script")
@@ -329,7 +329,7 @@ class GeckoUserScriptHost(
         inflight[id] = call
         try {
             call.execute().use { resp ->
-                val body = resp.body?.string()?.take(MAX_XHR_BODY) ?: ""
+                val body = resp.body.string().take(MAX_XHR_BODY)
                 val headerBlock = resp.headers.toMultimap()
                     .flatMap { (name, values) -> values.map { "$name: $it" } }
                     .joinToString("\r\n")

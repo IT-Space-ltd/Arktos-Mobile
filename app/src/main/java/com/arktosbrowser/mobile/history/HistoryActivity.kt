@@ -196,7 +196,7 @@ class HistoryActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                     historyList = list
                 }
         arrayAdapter = CustomAdapter(this, historyList)
-        list?.adapter = arrayAdapter
+        list.adapter = arrayAdapter
         arrayAdapter.notifyDataSetChanged()
     }
 

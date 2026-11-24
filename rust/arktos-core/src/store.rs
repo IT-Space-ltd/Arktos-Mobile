@@ -95,7 +95,7 @@ pub fn seal_with_key(key: &[u8; KEY_SIZE], plain: &[u8]) -> RcResult<Vec<u8>> {
         msg: format!("getrandom: {e}"),
     })?;
     let sealed = cipher
-        .encrypt(Nonce96::from_slice(&nonce), plain)
+        .encrypt(Nonce96::from(nonce).as_ref(), plain)
         .map_err(|_| Fail {
             status: RcStatus::Crypto,
             msg: "aes-gcm seal failed".into(),
@@ -114,7 +114,10 @@ pub fn open_with_key(key: &[u8; KEY_SIZE], blob: &[u8]) -> RcResult<Vec<u8>> {
     if blob.len() < HEADER_SIZE || &blob[..6] != SEAL_MAGIC {
         return fail(RcStatus::Corrupt, "not a sealed blob");
     }
-    let nonce = Nonce96::from_slice(&blob[6..6 + NONCE_SIZE]);
+    let nonce = <&Nonce96>::try_from(&blob[6..6 + NONCE_SIZE]).map_err(|_| Fail {
+        status: RcStatus::Corrupt,
+        msg: "bad nonce length".into(),
+    })?;
     let tag = &blob[6 + NONCE_SIZE..HEADER_SIZE];
     let ct = &blob[HEADER_SIZE..];
     let mut ct_tag = Vec::with_capacity(ct.len() + TAG_SIZE);

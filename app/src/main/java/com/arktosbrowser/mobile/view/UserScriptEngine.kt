@@ -248,7 +248,7 @@ class UserScriptEngine @Inject constructor(
         inflight[id] = call
         try {
             call.execute().use { resp ->
-                val body = resp.body?.string()?.take(MAX_XHR_BODY) ?: ""
+                val body = resp.body.string().take(MAX_XHR_BODY)
                 val headerBlock = resp.headers.toMultimap()
                     .flatMap { (name, values) -> values.map { "$name: $it" } }
                     .joinToString("\r\n")

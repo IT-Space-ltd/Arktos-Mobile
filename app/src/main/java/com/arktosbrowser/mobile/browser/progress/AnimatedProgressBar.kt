@@ -26,7 +26,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.animation.Interpolator
 import android.view.animation.LinearInterpolator
-import androidx.core.view.ViewCompat
 import com.arktosbrowser.mobile.R
 
 /**
@@ -90,7 +89,7 @@ class AnimatedProgressBar @JvmOverloads constructor(
 
             // If the view is not laid out yet we have no width to
             // animate against — retry once layout has run.
-            if (measuredWidth == 0 && !ViewCompat.isLaidOut(this)) {
+            if (measuredWidth == 0 && !isLaidOut) {
                 post { progress = newProgress }
                 return
             }

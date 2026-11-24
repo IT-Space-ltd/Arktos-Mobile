@@ -48,10 +48,6 @@ class ProxyUtils @Inject constructor(
                 host = userPreferences.proxyHost
                 port = userPreferences.proxyPort
             }
-            else -> {
-                host = userPreferences.proxyHost
-                port = userPreferences.proxyPort
-            }
         }
 
         // ENG05 — the engine applies the resolved proxy itself

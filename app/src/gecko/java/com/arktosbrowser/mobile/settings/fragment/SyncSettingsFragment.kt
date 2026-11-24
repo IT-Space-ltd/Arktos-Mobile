@@ -146,7 +146,7 @@ class SyncSettingsFragment : AbstractSettingsFragment() {
                 val lp = pref as androidx.preference.ListPreference
                 lp.summary = lp.entries?.getOrNull(
                     lp.entryValues?.indexOf(newValue) ?: -1)
-                context?.applicationContext?.let {
+                context.applicationContext.let {
                     com.arktosbrowser.mobile.sync.SyncRepository.armInAppSync(it)
                 }
                 true

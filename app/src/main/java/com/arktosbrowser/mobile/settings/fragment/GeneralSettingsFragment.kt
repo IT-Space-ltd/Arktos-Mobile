@@ -131,7 +131,6 @@ class GeneralSettingsFragment : AbstractSettingsFragment() {
                     SuggestionNumChoice.SIX -> stringArray[3]
                     SuggestionNumChoice.SEVEN -> stringArray[4]
                     SuggestionNumChoice.EIGHT -> stringArray[5]
-                    else -> stringArray[2]
                 })
             }
             withSingleChoiceItems(values, userPreferences.suggestionChoice) {

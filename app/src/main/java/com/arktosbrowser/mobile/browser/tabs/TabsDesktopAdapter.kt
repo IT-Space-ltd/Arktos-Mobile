@@ -7,6 +7,7 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -65,7 +66,7 @@ class TabsDesktopAdapter(
 
     private fun updateViewHolderAppearance(viewHolder: TabViewHolder, favicon: Bitmap?, isForeground: Boolean) {
         if (isForeground) {
-            val foregroundDrawable = resources.getDrawable(R.drawable.desktop_tab_selected)
+            val foregroundDrawable = ContextCompat.getDrawable(uiController as Context, R.drawable.desktop_tab_selected)!!
             foregroundDrawable.tint(ThemeUtils.getColorBackground(uiController as Context))
             if (uiController.isColorMode()) {
                 foregroundDrawable.tint(uiController.getUiColor())
@@ -74,7 +75,7 @@ class TabsDesktopAdapter(
             viewHolder.layout.background = foregroundDrawable
             uiController.changeToolbarBackground(favicon, foregroundDrawable)
         } else {
-            val backgroundDrawable = resources.getDrawable(R.drawable.desktop_tab)
+            val backgroundDrawable = ContextCompat.getDrawable(uiController as Context, R.drawable.desktop_tab)!!
             backgroundDrawable.tint(ArktosCore.mixTwoColors(ThemeUtils.getColorBackground(uiController as Context), Color.BLACK, 0.85f))
             TextViewCompat.setTextAppearance(viewHolder.txtTitle, R.style.normalText)
             viewHolder.layout.background = backgroundDrawable
