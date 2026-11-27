@@ -48,7 +48,7 @@ x25519-dalek = { version = "=3.0.0", features = ["static_secrets"] }
 rusqlite = { version = "=0.40.2", features = ["bundled-sqlcipher-vendored-openssl"] }
 # STORE01 — Netscape bookmark importer. Tokenizer-only crate; the
 # importer builds its own tiny DT/DL state machine on top.
-html5gum = "=0.9.1"
+html5gum = "=0.9.2"
 # PORT01 — legacy bookmark importer (JSON-lines) + DDG/Baidu/Naver
 # suggestion responses.
 serde_json = "=1.0.154"
