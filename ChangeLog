@@ -6,6 +6,25 @@ notes; `app/src/main/assets/changelog.html` renders the same entries
 inside the app (Settings → About → Changelog, or arktos://changelog).
 When you add an entry here, mirror it in the HTML page.
 
+1.2.16 — Ad-block list refresh + dependency updates
+
+- Bundled ad-block hosts.txt refreshed to the latest AdAway upstream
+  snapshot: drops 816 dead entries (mostly the defunct
+  mobileapptracking.com subdomain farm upstream cleaned out) and
+  picks up the new additions — a smaller, more accurate blocklist.
+- Rust dependency updates: dom_smoothie 0.19.0 → 0.20.0 (with
+  dom_query 0.29.0 → 0.30.0), zeroize 1.9.1 → 1.9.2, html5gum
+  0.9.1 → 0.9.2. argon2 — already on 0.6.0 — is now pinned against
+  a known-answer test vector proving output bit-identical to the
+  0.5.x line, so existing app-lock/vault hashes keep verifying.
+- Gradle-side dependency updates: jsoup 1.23.2 → 1.24.1, KSP
+  2.3.13 → 2.3.14, Gradle wrapper 9.9.0 → 9.9.2.
+- Compiler warning cleanup across both flavors: dead null-checks,
+  unreachable branches, deprecated adapterPosition swaps, an NPE
+  guard in the cache-dir cleanup, redundant safe-calls — everything
+  remaining is intentional deprecated-API use for old-Android
+  support.
+
 1.2.15 — GeckoView stable respin + dependency updates
 
 - Gecko flavor updated to the latest stable-channel GeckoView

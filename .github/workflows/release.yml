@@ -1,0 +1,72 @@
+name: Release
+
+# Tag-push release pipeline: builds both flavor release APKs unsigned
+# and uploads them as artifacts. Signing happens off-CI — the release
+# keystore never leaves the maintainer machine (REPRODUCIBLE.md's
+# signing model): download the artifacts, apksigner-sign locally, then
+# attach the signed APKs to the GitHub release entry.
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+jobs:
+  release-build:
+    runs-on: ubuntu-26.04
+
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: set up JDK 21
+      uses: actions/setup-java@v6
+      with:
+        distribution: temurin
+        java-version: 21
+
+    - name: Install Rust toolchain
+      # Same pin as android.yml — mirrors rust-toolchain.toml (SEC16).
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: 1.99.0
+        targets: aarch64-linux-android, armv7-linux-androideabi, x86_64-linux-android
+
+    - name: Install cargo-ndk
+      run: cargo install cargo-ndk --version 4.1.2 --locked
+
+    - name: Install Android NDK
+      run: |
+        NDK_VERSION="28.2.13676358"
+        if [ -d "$ANDROID_HOME/ndk/$NDK_VERSION" ]; then
+          echo "Using preinstalled NDK $NDK_VERSION"
+          exit 0
+        fi
+        SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+        if [ ! -x "$SDKMANAGER" ]; then
+          SDKMANAGER="$(command -v sdkmanager || true)"
+        fi
+        if [ -z "$SDKMANAGER" ]; then
+          echo "sdkmanager not found under $ANDROID_HOME or PATH" >&2
+          exit 1
+        fi
+        "$SDKMANAGER" --install "ndk;$NDK_VERSION"
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build scMain Gecko release APK (unsigned)
+      run: ./gradlew assembleScMainGeckoRelease
+
+    - name: Build scMain WebView (Lite) release APK (unsigned)
+      run: ./gradlew assembleScMainWebviewRelease
+
+    - name: Unit Test
+      run: ./gradlew testScMainWebviewDebugUnitTest
+
+    - name: Upload unsigned release APKs
+      uses: actions/upload-artifact@v7
+      with:
+        name: unsigned-release-${{ github.ref_name }}
+        path: |
+          app/build/outputs/apk/scMainGecko/release/*.apk
+          app/build/outputs/apk/scMainWebview/release/*.apk
+        retention-days: 30

@@ -220,3 +220,23 @@ impl Store {
                 .unwrap_or_default().as_bytes())
     }
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn argon2_matches_bundled_c_vector() {
+        // Pinned against the desktop's src/argon2id.c reference (itself
+        // verified against libargon2): 32x0x01 password, 16x0x02 salt,
+        // t=3 m=32KiB p=4.  argon2id output is fully determined by
+        // (pass, salt, params, version 0x13), so matching this vector
+        // proves the 0.5.3 -> 0.6.0 crate swap is bit-identical for
+        // every parameter set — including the production 64MiB envelope
+        // existing app-lock/vault hashes were derived with.
+        let key = super::derive_key(&[1u8; 32], 32, 3, 4, &[2u8; 16]).unwrap();
+        let hex: String = key.iter().map(|b| format!("{b:02x}")).collect();
+        assert_eq!(
+            hex,
+            "03aab965c12001c9d7d0d2de33192c0494b684bb148196d73c1df1acaf6d0c2e"
+        );
+    }
+}
